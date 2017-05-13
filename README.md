@@ -18,7 +18,7 @@ Steps to run the code:
    
    2.1 cd into HTTPServer directory.
    
-   2.2 To build, type javac -d bin/ src/
+   2.2 To build, type javac -d bin/ src/*.java .
    
    2.3 To run , go to bin directory and type java Server.WebServer [port-number][num_threads].
 
