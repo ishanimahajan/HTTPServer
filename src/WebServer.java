@@ -20,17 +20,17 @@ public class WebServer{
 		try{
 			this.threadPool = Executors.newFixedThreadPool(this.numThreads);
 		}catch (Exception e){
-			System.out.println("Error during creation of thread pool"+ e);
+			System.err.println("Error during creation of thread pool"+ e);
 			System.exit(1);
 		}
 
 		try {
 			this.serverSocket = new ServerSocket(this.portNumber);
 		}catch (IOException e) {
-			System.out.println(this.portNumber+" Port already in use");
+			System.err.println(this.portNumber+" Port already in use");
 			System.exit(1);
 		}catch (Exception e){
-			System.out.println("Exception during creation of Server socket"+e);
+			System.err.println("Exception during creation of Server socket"+e);
 			System.exit(1);
 		}
 
@@ -44,17 +44,17 @@ public class WebServer{
 		try{
 			this.threadPool = Executors.newFixedThreadPool(this.numThreads);
 		}catch (Exception e){
-			System.out.println("Error during creation of thread pool"+e);
+			System.err.println("Error during creation of thread pool"+e);
 			System.exit(1);
 		}
 
 		try {
 			this.serverSocket = new ServerSocket(this.portNumber);
 		}catch (IOException e) {
-			System.out.println(this.portNumber+" Port already in use");
+			System.err.println(this.portNumber+" Port already in use");
 			System.exit(1);
 		}catch (Exception e){
-			System.out.println("Exception during creation of Server socket");
+			System.err.println("Exception during creation of Server socket");
 			System.exit(1);
 		}
 
@@ -85,10 +85,10 @@ public class WebServer{
     			clientSocket = server.serverSocket.accept();
 				server.threadPool.execute(new Worker(clientSocket));
     		}catch (IOException e){
-    			System.out.println("Error accepting client connection ");
+    			System.err.println("Error accepting client connection ");
 			System.exit(1);
     		}catch(Exception e){
-			System.out.println("Error accepting client connection or executing task");
+			System.err.println("Error accepting client connection or executing task");
 			System.exit(1);
 		}
     	}

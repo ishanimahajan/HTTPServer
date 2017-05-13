@@ -62,45 +62,56 @@ public class Worker implements Runnable{
 
       		//Read the request line of http request message
       		String req = in.readLine();
-      		System.out.println(req);  // Log the request
 
-      		try {
-          		// Extract the filename from the request line.
-          		StringTokenizer tokens = new StringTokenizer(req);
-          		// skip over the method, which should be "GET"
-          		tokens.nextToken();
-          		fileName = tokens.nextToken();
-          		if(fileName.equals(new String("/"))){
-          			os.writeBytes("HTTP/1.0 404 Not Found\r\n"+
-              				"Content-type: text/html\r\n\r\n"+
-              				"<html><head></head><body>Welcome to Multithreaded Server.</body></html>\n");
-          			os.close();
-          			return;
-          		}
+		try {
+			if(req != null){
 
-          		fileName = fileName.substring(1);
+				System.out.println("Request for " + req + " is being processed " +
+					"by socket at " + clientSocket.getInetAddress() +":"+ clientSocket.getPort());
 
-        		// Check for illegal characters to prevent access to superdirectories
-        		if (fileName.indexOf("..")>=0 || fileName.indexOf(':')>=0 || fileName.indexOf('|')>=0)
-          		throw new FileNotFoundException();
+      			//try {
+          			// Extract the filename from the request line.
+          			StringTokenizer tokens = new StringTokenizer(req);
+          			// skip over the method, which should be "GET"
+          			tokens.nextToken();
+          			fileName = tokens.nextToken();
+          			if(fileName.equals(new String("/"))){
+          				os.writeBytes("HTTP/1.0 404 Not Found\r\n"+
+              					"Content-type: text/html\r\n\r\n"+
+              					"<html><head></head><body>Welcome to Multithreaded Server.</body></html>\n");
+          				os.close();
+          				return;
+          			}
 
-          		FileInputStream fis = null;
-       		        String filePaths = "../fileLib/";
-          		fis = new FileInputStream(filePaths + fileName);
+          			fileName = fileName.substring(1);
 
-          		// Construct the response message.
-          		String statusLine = null;
-          		String contentTypeLine = null;
-               	        statusLine = "HTTP/1.0 200 OK\r\n";
-              		contentTypeLine = "Content-type: " + contentType( fileName ) + CRLF;
-          		// Send the status line.
-          		os.writeBytes(statusLine);
-          		// Send the content type line.
-          		os.writeBytes(contentTypeLine);
-          		// Send a blank line to indicate the end of the header lines.
-          		os.writeBytes(CRLF);
-          		sendBytes(fis, os);
-          		fis.close();
+        			// Check for illegal characters to prevent access to superdirectories
+        			if (fileName.indexOf("..")>=0 || fileName.indexOf(':')>=0 || fileName.indexOf('|')>=0)
+        	  		throw new FileNotFoundException();
+
+          			FileInputStream fis = null;
+       		    	        String filePaths = "../fileLib/";
+          			fis = new FileInputStream(filePaths + fileName);
+
+       		   		// Construct the response message.
+          			String statusLine = null;
+          			String contentTypeLine = null;
+        	       	        statusLine = "HTTP/1.0 200 OK\r\n";
+	              		contentTypeLine = "Content-type: " + contentType( fileName ) + CRLF;
+          			// Send the status line.
+          			os.writeBytes(statusLine);
+          			// Send the content type line.
+          			os.writeBytes(contentTypeLine);
+          			// Send a blank line to indicate the end of the header lines.
+          			os.writeBytes(CRLF);
+          			sendBytes(fis, os);
+				fis.close();
+		
+			} else {
+				System.err.println("Server accepts only HTTP protocol.");
+			}
+          	
+//			fis.close();
           		os.close();
 
       		}catch (FileNotFoundException x) {
@@ -118,7 +129,7 @@ public class Worker implements Runnable{
           		os.close();
       		}
     	}catch (IOException x) {
-      		System.out.println(x);
+      		System.err.println(x);
     	}
     }
 }
