@@ -58,7 +58,7 @@ public class Worker implements Runnable{
 
       		//Open Output Stream
       		OutputStream os1 = clientSocket.getOutputStream();
-          DataOutputStream os = new DataOutputStream(os1);
+                DataOutputStream os = new DataOutputStream(os1);
 
       		//Read the request line of http request message
       		String req = in.readLine();
@@ -85,14 +85,14 @@ public class Worker implements Runnable{
           		throw new FileNotFoundException();
 
           		FileInputStream fis = null;
-              String filePaths = "./fileLib/";
+       		        String filePaths = "../fileLib/";
           		fis = new FileInputStream(filePaths + fileName);
 
           		// Construct the response message.
           		String statusLine = null;
           		String contentTypeLine = null;
-              	statusLine = "HTTP/1.0 200 OK\r\n";
-              	contentTypeLine = "Content-type: " + contentType( fileName ) + CRLF;
+               	        statusLine = "HTTP/1.0 200 OK\r\n";
+              		contentTypeLine = "Content-type: " + contentType( fileName ) + CRLF;
           		// Send the status line.
           		os.writeBytes(statusLine);
           		// Send the content type line.
