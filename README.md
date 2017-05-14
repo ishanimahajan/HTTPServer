@@ -23,7 +23,7 @@ Steps to run the code:
    2.3 To run , go to bin directory and type java Server.WebServer [port-number][num_threads].
 
 
-3. Run client with following different testcases :
+3. Run client with following different cases :
    
    3.1 Go to browser and type http://localhost:port. This will open the default page.
    
@@ -34,3 +34,9 @@ Steps to run the code:
    3.4 Try running multiple clients simultaneously witn GET request with different file formats.
    
    3.5 Go to browser and type http://localhost:port/random.html. This will give "File not found" as this file is not present.
+
+
+References:
+http://www.iith.ac.in/~tbr/teaching/lab1.html
+https://www.cs.swarthmore.edu/~newhall/unixhelp/javamakefiles.html
+https://www.tutorialspoint.com/java/
